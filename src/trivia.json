@@ -2,42 +2,42 @@
     {
         "people" : [
             {"q" : "What is Darth Vader's homeworld?",
-             "a" : "https://swapi.dev/api/planets/1/"
+             "a" : "Tatooine"
             }
         ]
     },
     {
         "planets" : [
-            {"q" : "What is Darth Vader's homeworld?",
-             "a" : "https://swapi.dev/api/planets/1/"
+            {"q" : "What planet was the homeworld of the clones?",
+             "a" : "Kamino"
             }
         ]
     },
     {
         "films" : [
-            {"q" : "What is Darth Vader's homeworld?",
-                "a" : "https://swapi.dev/api/planets/1/"
+            {"q" : "In what film does Obi Wan become one with the force?",
+                "a" : "A New Hope"
                }
         ]
     },
     {
         "species" : [
-            {"q" : "What is Darth Vader's homeworld?",
-                "a" : "https://swapi.dev/api/planets/1/"
+            {"q" : "What was the monster that Luke Skywalker faced at Jabba the Hutt's palace?",
+                "a" : "Rancore"
                }
         ]
     },
     {
         "vehicles": [
-            {"q" : "What is Darth Vader's homeworld?",
-                "a" : "https://swapi.dev/api/planets/1/"
+            {"q" : "What four-legged wakler did the Empire attack the Rebels with on Hoth?",
+                "a" : "ATAT"
                }
         ]
     },
     {
         "starships" : [
-            {"q" : "What is Darth Vader's homeworld?",
-                "a" : "https://swapi.dev/api/planets/1/"
+            {"q" : "What is the name of the starship that preceded the imperial star destroyer?",
+                "a" : "Venator"
                }
         ]
     },
