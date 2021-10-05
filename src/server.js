@@ -10,10 +10,10 @@ const urlStruct = {
     '/': htmlHandler.mainPageResponse,
     '/app' : htmlHandler.appPage,
     '/admin': responseHandler.getResponse,
-  //  '/suggest': htmlHandler.suggestPage,
-   '/image' : htmlHandler.imageResponse,
+    '/submit-joke': htmlHandler.suggestPageResponse,  //Suggest joke
+    '/obiwan.jpg' : htmlHandler.imageResponse,
     '/default-styles.css': htmlHandler.cssResponse,
-    notFound: htmlHandler.get404Response
+    notFound  : htmlHandler.get404Response
 };
 // eslint-disable-next-line
 const port = process.env.PORT || process.env.NODE_PORT || 3000;

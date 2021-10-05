@@ -18,9 +18,16 @@
     <option value="starships">Starships</option>
 </select>
 <button type="button" id="btn">Begin Quiz!</button>
+<br>
+<h2 id="question"></h2>
+<div id="answerField"></div>
     <script>
         const selection = document.querySelector('#selectCategory');
         const btn = document.querySelector('#btn');
+        const questionPrompt = document.querySelector('#question');
+        let answerPrompt;
+        const answerField = document.querySelector('#answerField');
+        let startedQuiz = false, answeredCorrectly = false, quizCompleted = false;
         // Organization of url object credit to: https://www.youtube.com/watch?v=qb6sMTeyLJY
         // Time stamp - 4:05
         let urls = {
@@ -31,7 +38,7 @@
             species: 'species/',
             vehicles: 'vehicles/',
             starships: 'starships/'
-        }
+        };
 
         const loadApi = (endpoint) => {
             fetch(urls.base + selection.value).then(response => {
@@ -41,24 +48,45 @@
                 console.log(data);
             });
         };
-        /*
-        async function loadAPI() {
-            let response = await fetch(urls.base + urls.planets);
-           let jsonObj = await response.json();
-           return jsonObj
-        } */
+   
+        function quiz() {
+            fetch(`/admin?selection=${selection.value}`)
+            .then(response => console.log(response))
+            .catch(error => {console.log(error)});
+            /*
+            while(!quizCompleted) {
 
-
-        function init() {
-            
-          //  console.log(loadAPI());
+            } */
+            createQuizForm("Why do you ask?", "Because");
         }
 
+        function createQuizForm(question, answer) {
+            questionPrompt.innerHTML = question;
+            answerPrompt = document.createElement("input");
+            answerPrompt.setAttribute('type', 'text');
+            answerPrompt.setAttribute('value', 'default');
+            answerField.append(answerPrompt);
+
+            answerField.addEventListener('input', (e) => {
+                if (e.target.value === answer) {
+                    answeredCorrectly = true;
+                    console.log("Your answer is correct!");
+                }
+            });
+           console.log(answerPrompt.value);
+        }
         window.onload = function () {
-            init();
         } 
         btn.onclick = (e) => {
-           loadApi(selection.value);
+           quiz();
+        }
+
+        logInputValue = (e, answer) => {
+            let userAnswer = e.target.value;
+            if (userAnswer == answer) {
+                answeredCorrectly = true;
+                
+            }
         }
     </script>
 </body>

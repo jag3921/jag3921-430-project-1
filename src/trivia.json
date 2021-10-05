@@ -1,0 +1,47 @@
+[
+    {
+        "people" : [
+            {"q" : "What is Darth Vader's homeworld?",
+             "a" : "https://swapi.dev/api/planets/1/"
+            }
+        ]
+    },
+    {
+        "planets" : [
+            {"q" : "What is Darth Vader's homeworld?",
+             "a" : "https://swapi.dev/api/planets/1/"
+            }
+        ]
+    },
+    {
+        "films" : [
+            {"q" : "What is Darth Vader's homeworld?",
+                "a" : "https://swapi.dev/api/planets/1/"
+               }
+        ]
+    },
+    {
+        "species" : [
+            {"q" : "What is Darth Vader's homeworld?",
+                "a" : "https://swapi.dev/api/planets/1/"
+               }
+        ]
+    },
+    {
+        "vehicles": [
+            {"q" : "What is Darth Vader's homeworld?",
+                "a" : "https://swapi.dev/api/planets/1/"
+               }
+        ]
+    },
+    {
+        "starships" : [
+            {"q" : "What is Darth Vader's homeworld?",
+                "a" : "https://swapi.dev/api/planets/1/"
+               }
+        ]
+    },
+    {
+        "userTrivia" : []
+    }
+]
