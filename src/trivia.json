@@ -3,6 +3,10 @@
         "people" : [
             {"q" : "What is Darth Vader's homeworld?",
              "a" : "Tatooine"
+            },
+            {
+             "q" : "Who is Darth Sidious?",
+             "a" : "Palpatine"
             }
         ]
     },

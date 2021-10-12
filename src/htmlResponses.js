@@ -9,27 +9,27 @@ const css = fs.readFileSync(`${__dirname}/../client/default-styles.css`); //esli
 const imageObiwan = fs.readFileSync(`${__dirname}/../client/obiwan.jpg`); //eslint-disable-line
 console.log(imageObiwan);
 
-function getResponse(contentType, content, request, response) {
-    response.writeHead(200, {'Content-Type': contentType});
+function getResponse(statusCode, contentType, content, request, response) {
+    response.writeHead(statusCode, {'Content-Type': contentType});
     response.write(content);
     response.end();
 }
 
 const appPageResponse = (request, response) => {
-    getResponse('text/html', appPage, request, response);
+    getResponse(200, 'text/html', appPage, request, response);
 }
 const mainPageResponse = (request, response) => {
-    getResponse('text/html', mainPage, request, response);
+    getResponse(200, 'text/html', mainPage, request, response);
 }
 
 const suggestPageResponse = (request, response) => {
-    getResponse('text/html', suggestPage, request, response);
+    getResponse(200, 'text/html', suggestPage, request, response);
 }
 const get404Response = (request, response) => {
-    getResponse('text/html', errorPage, request, response);
+    getResponse(404,'text/html', errorPage, request, response);
 }
 const cssResponse = (request, response) => {
-    getResponse('text/css', css, request, response);
+    getResponse(200,'text/css', css, request, response);
 }
 
 const imageResponse = (request, response) => {

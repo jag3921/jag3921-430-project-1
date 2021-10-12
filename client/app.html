@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Star Wars App</title>
+    <h3><a href='/'>Go Back</a> | <a href='/study'>Want to study?</a> | <a href='/admin?value=planets/1/'>Admin</a></h3>
     <h1>Interactive Star Wars App</h1>
 </head>
 <body>
@@ -16,88 +17,122 @@
     <option value="species">Species</option>
     <option value="vehicles">Vehicles</option>
     <option value="starships">Starships</option>
+    <option value="userTrivia">User Trivia</option>
 </select>
 <button type="button" id="btn">Begin Quiz!</button>
+<button type="button" id="submit-answer">Submit Answer</button>
 <br>
 <h2 id="question"></h2>
 <div id="answerField"></div>
+<h3 id="countdown"></h3>
 <p id="testField"></p>
+<h2 id="score"></h2>
     <script>
         const selection = document.querySelector('#selectCategory');
         const btn = document.querySelector('#btn');
+        const submitAnswer = document.querySelector('#submit-answer');
         const questionPrompt = document.querySelector('#question');
-        let answerPrompt;
+        let answerPrompt, timeOne;
+        let questionNum = 0, numCorrect = 0, numIncorrect = 0, time = 10;
+        let selectedQuestions
+        const countdownField = document.querySelector('#countdown');
         const answerField = document.querySelector('#answerField');
         const testField = document.querySelector('#testField');
+        const score = document.querySelector('#score');
         let startedQuiz = false, answeredCorrectly = false, quizCompleted = false;
-        // Organization of url object credit to: https://www.youtube.com/watch?v=qb6sMTeyLJY
-        // Time stamp - 4:05
-        let urls = {
-            base: 'https://swapi.dev/api/',
-            people: 'people/',
-            planets: 'planets/',
-            films: 'films/',
-            species: 'species/',
-            vehicles: 'vehicles/',
-            starships: 'starships/'
-        };
-
-        const loadApi = (endpoint) => {
-            fetch(urls.base + selection.value).then(response => {
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-            });
-        };
+        //Set up input field
+        answerPrompt = document.createElement("input");
+        answerPrompt.setAttribute('type', 'text'); 
+        answerPrompt.setAttribute('value', 'type answer');
+        answerField.append(answerPrompt);
+        answerPrompt.style.display = "none";
+        submitAnswer.style.display = "none";
    
         function quiz() {
-            fetch(`/admin?value=${selection.value}`)
+            let selectedTopic;
+            
+            fetch(`/study?value=${selection.value}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].hasOwnProperty(selection.value)) {
-                        console.log(data[i]);
-                        testField.innerHTML = JSON.stringify(data[i]);
-                }
-            }})
-            .catch(error => {console.log(error)});
-            /*
-            while(!quizCompleted) {
-
-            } */
-            createQuizForm("Why do you ask?", "Because");
+                //Extract and parse data into an array
+               let extractedData = extractData(data, selection.value);
+               let vals = Object.values(extractedData);
+               selectedQuestions = vals[0];
+               score.innerHTML = '';
+               numCorrect = 0;
+               takeQuiz(questionNum, selectedQuestions);
+        });
         }
+        
+        // Recursive function that has multiple outcomes. If the user doesn't get the right answer in the allowed time
+        // limit, they will lose a point and continue to the next question. If the user gets it right they are rewarded
+        // a point and continue to the next question. The function breaks when there are no more questions left.
+        function takeQuiz(questionNum, selectedQuestions) {
+           if (questionNum < selectedQuestions.length) {
+               answeredCorrectly = false;
+               let selectedVal = selectedQuestions[questionNum];
+               console.log(JSON.stringify(selectedVal));
 
-        function createQuizForm(question, answer) {
-            questionPrompt.innerHTML = question;
-            answerPrompt = document.createElement("input");
-            answerPrompt.setAttribute('type', 'text');
-            answerPrompt.setAttribute('value', 'type answer');
-            answerField.append(answerPrompt);
+                let question = JSON.stringify(selectedVal.q);
+                let answer = JSON.stringify(selectedVal.a);
+                question = question.replace(/^"|"$/g, ''); //Removes quotes from both ends of string
+                answer = answer.replace(/^"|"$/g, '');
 
-            answerField.addEventListener('input', (e) => {
-                if (e.target.value === answer) {
+                questionPrompt.innerHTML = question;
+                console.log(answer);
+                answerPrompt.style.display = "block";
+
+                //Start timing the question
+                timer();
+
+                answerField.addEventListener('input', (e) => {
+                let userAnswer = e.target.value;
+                userAnswer = userAnswer.toLowerCase();
+                // Check answer and continue to next question 
+                if (userAnswer === answer.toLowerCase()) {
                     answeredCorrectly = true;
-                    console.log("Your answer is correct!");
+                    numCorrect++;
+                    questionNum++;
+                    time = 10;
+                    stopTimer();
+                    takeQuiz(questionNum, selectedQuestions);
                 }
-            });
-           console.log(answerPrompt.value);
-        }
-        window.onload = function () {
+               });
+           }
+           else {
+               score.innerHTML = `Your score is: ${numCorrect} / ${selectedQuestions.length}`;
+               return;
+           }
         } 
+
+        function extractData(data, lookfor) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].hasOwnProperty(lookfor)) {
+                    return data[i];
+                }
+            }
+        }
+        function timer() {
+            timeOne = setInterval(countdown, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timeOne);
+        }
+        function countdown() {
+            countdownField.innerHTML = `${time}`;
+            time--;
+            if (time === 0) {
+                    answeredCorrectly = false;
+                    stopTimer();
+                    questionNum++;
+                    time = 10;
+                    console.log("Ran out of time!");
+                    takeQuiz(questionNum, selectedQuestions);
+                }  
+        }
         btn.onclick = (e) => {
            quiz();
-        }
-
-        logInputValue = (e, answer) => {
-            let userAnswer = e.target.value;
-            if (userAnswer == answer) {
-                answeredCorrectly = true;
-                
-            }
         }
 
 

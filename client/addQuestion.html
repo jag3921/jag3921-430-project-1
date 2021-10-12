@@ -9,7 +9,7 @@
 <body>
     <section>
         <h2>Suggest a Question!</h2>
-            <form id="joke-form" method="post" action="/admin">
+            <form id="add-trivia" method="post" action="/addTrivia">
                 <label for="setup-field">Trivia Question: </label>
                 <input id="setup-field" type="text" name="setup" />
                 <label for="answer-field">Answer: </label>
@@ -17,10 +17,78 @@
                 <input type="submit" value="Submit Trivia" />
             </form>
         </section>
-
+        <section id="content">
+        </section>
         <script>
-           
 
+    // All credit here goes to Austin and Tony. Would have been very tricky without the body-parse demo.
+    const parseJSON = (xhr, content) => {
+    	if(xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json'){
+      	const obj = JSON.parse(xhr.response);
+      	console.dir(obj);
+      	
+      	if(obj.message){
+      		content.innerHTML += `<p>${obj.message}</p>`;
+      	}
+      }
+    };
+
+    const handleResponse = (xhr) => {
+      const content = document.querySelector('#content');
+      
+      switch(xhr.status){
+      	case 200:
+      		content.innerHTML = '<b>Success!</b>';
+      		break;
+      	case 201:
+      		content.innerHTML = '<b>Created!</b>';
+      		break;
+      	case 204:
+      		content.innerHTML = '<b>Updated (No Content)!</b>';
+      		break;
+      	case 400:
+      		content.innerHTML = '<b>Bad Request!</b>';
+      		break;
+      	default:
+      		content.innerHTML = '<b>Error code not implemented by client</b>';
+      }
+      
+      parseJSON(xhr,content);
+    };
+
+    const sendPost = (e, nameForm) => {
+			e.preventDefault();
+			const triviaAction = nameForm.getAttribute("action");
+			const triviaMethod = nameForm.getAttribute("method");
+			
+			const setupField = nameForm.querySelector("#setup-field");
+			const triviaField = nameForm.querySelector("#answer-field");
+			
+			const xhr = new XMLHttpRequest();
+			xhr.open(triviaMethod,triviaAction); 
+			
+			xhr.setRequestHeader('Accept','application/json');
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		
+			xhr.onload = () => handleResponse(xhr);
+			
+			const formData = `setup=${setupField.value}&trivia=${triviaField.value}`;
+			xhr.send(formData); 
+			
+			return false; 
+    };
+
+
+    const init = () => {
+      const triviaForm = document.querySelector('#add-trivia');
+      
+      const addTrivia = (e) => sendPost(e, triviaForm);
+      
+     	triviaForm.addEventListener('submit', addTrivia);
+    };
+
+    window.onload = init;
         </script>
+
 </body>
 </html>

@@ -9,8 +9,10 @@ const responseHandler = require('./responses');
 const urlStruct = {
     '/': htmlHandler.mainPageResponse,
     '/app' : htmlHandler.appPage,
-    '/admin': responseHandler.getResponse,
+    '/admin': responseHandler.getApiResponse,
+    '/study': responseHandler.getResponse,
     '/submit-joke': htmlHandler.suggestPageResponse,  //Suggest joke
+    '/addTrivia' : responseHandler.postResponse,
     '/obiwan.jpg' : htmlHandler.imageResponse,
     '/default-styles.css': htmlHandler.cssResponse,
     notFound  : htmlHandler.get404Response
