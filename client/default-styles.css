@@ -1,1 +1,29 @@
-*{font-family: sans-serif; color: blue}
+@font-face { 
+    font-family: 'Starjedi'; 
+     src: url('client/Starjedi.ttf'); 
+    }
+*{font-family: sans-serif; color: yellow;  font-family: 'arial'}
+
+body {
+    background-color: darkblue;
+}
+p {
+    color: white;
+}
+h3 {
+    color: white;
+}
+input {
+    color: black;
+}
+select {
+    color: black;
+}
+option {
+    color: black;
+}
+button {
+    color: black;
+    border: 2px solid yellow;
+    border-radius: 12px;
+}

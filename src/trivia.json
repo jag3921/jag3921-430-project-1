@@ -1,19 +1,27 @@
 [
     {
         "people" : [
-            {"q" : "What is Darth Vader's homeworld?",
-             "a" : "Tatooine"
-            },
             {
              "q" : "Who is Darth Sidious?",
              "a" : "Palpatine"
-            }
+            },
+            {
+                "q" : "Who is Darth Vader?",
+                "a" : "Anakin Skywalker"
+               },
+               {
+                "q" : "What is the name of the Mandalorian?",
+                "a" : "Din Djarin"
+               }
         ]
     },
     {
         "planets" : [
             {"q" : "What planet was the homeworld of the clones?",
              "a" : "Kamino"
+            },
+            {"q" : "What is Darth Vader's homeworld?",
+             "a" : "Tatooine"
             }
         ]
     },
@@ -21,6 +29,12 @@
         "films" : [
             {"q" : "In what film does Obi Wan become one with the force?",
                 "a" : "A New Hope"
+               },
+               {"q" : "What film does Anakin Skywalker become Darth Vader?",
+                "a" : "Revenge of the Sith"
+               },
+               {"q" : "In what film is the rebel base on Hoth attacked?",
+                "a" : "The Empire Strikes Back"
                }
         ]
     },
@@ -28,6 +42,9 @@
         "species" : [
             {"q" : "What was the monster that Luke Skywalker faced at Jabba the Hutt's palace?",
                 "a" : "Rancore"
+               },
+               {"q" : "What was the monster that ate Boba Fett?",
+                "a" : "Sarlacc"
                }
         ]
     },
@@ -35,6 +52,9 @@
         "vehicles": [
             {"q" : "What four-legged wakler did the Empire attack the Rebels with on Hoth?",
                 "a" : "ATAT"
+               },
+               {"q" : "What was the main fighter used by the Empire?",
+                "a" : "Tie Fighter"
                }
         ]
     },
@@ -42,6 +62,9 @@
         "starships" : [
             {"q" : "What is the name of the starship that preceded the imperial star destroyer?",
                 "a" : "Venator"
+               },
+               {"q" : "What is the name of the ship that Han Solo flies?",
+                "a" : "Millennium Falcon"
                }
         ]
     },
