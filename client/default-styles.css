@@ -6,6 +6,7 @@
 
 body {
     background-color: darkblue;
+    text-align: center;
 }
 p {
     color: white;
@@ -15,6 +16,7 @@ h3 {
 }
 input {
     color: black;
+    margin-left: 45%;
 }
 select {
     color: black;
